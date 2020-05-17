@@ -1,0 +1,131 @@
+# Runtime Analysis
+
+-------------------------------------------------------------------------------------------
+
+TASK 0
+
+* Analysis worst-case complexity task 0
+	- two functions print (python): O(1) + O(1)
+	- aprox : O(1) (constant time)
+
+
+-------------------------------------------------------------------------------------------
+
+TASK 1
+
+code:
+
+numbers_set = set()                	# O(1)
+for t in texts:						# for: O(n)
+    numbers_set.add(t[0])			# set add : worst-case(rare) O(n), more accurate case: O(1)
+    numbers_set.add(t[1])			# *idem set add
+for c in calls:						# for: O(n)
+    numbers_set.add(c[0])			# *idem set add
+    numbers_set.add(c[1])			# *idem set add
+
+count = len(numbers_list)			# O(1)
+print('....')  # O(1)
+
+
+* Analysis worst-case complexity task 1
+	- O(1) + 2 x O(n)
+	- aprox : O(n) (linear time)
+
+-------------------------------------------------------------------------------------------
+
+TASK 2
+
+code: 
+
+call_duration = {}
+
+for call in calls:											# for : O(n)
+    if str(call[0]) in call_duration:						# if key in dict: O(1)
+        call_duration[str(call[0])] += int(call[3])			# add new item to dict: O(1)
+    else:
+        call_duration[str(call[0])] = int(call[3])			# add new item to dict: O(1)		
+
+    if str(call[1]) in call_duration:						# if key in dict: O(1)
+        call_duration[str(call[1])] += int(call[3])			# add new item to dict: O(1)
+    else:
+        call_duration[str(call[1])] = int(call[3])			# add new item to dict: O(1)
+
+max_time_key = max(call_duration, key=call_duration.get) 	# max function: O(n)
+
+print('.....)
+
+* Analysis worst-case complexity task 2
+	- O(1) + 2 x O(n)
+	- aprox : O(n) (linear time)
+
+
+-------------------------------------------------------------------------------------------
+
+TASK 3
+
+code:
+# PART A
+
+area_codes = set()									# O(1)	
+for call in calls:									# for: O(n)
+    if call[0][:5] == '(080)':						# if : O(1)
+        if call[1][0] == '(':						# if : O(1)
+            code = call[1].split(')')				# split (one split): O(1)
+            area_codes.add(code[0][1:])				# set add : worst-case(rare) O(n), more accurate case: O(1)
+        elif call[1][0] in ('7', '8', '9'):			# in constant tuple: O(1)
+            code = call[1].split()					# split (one split): O(1)
+            area_codes.add(code[1])					# set add : worst-case(rare) O(n), more accurate case: O(1)
+
+sorted_codes = sorted(list(area_codes))				# python sort: O(n log n)
+
+print("....")										# O(1)
+for code in sorted_codes:							# for: O(n)
+	print(code)										# O(1)
+
+# PART B
+count_calls_to_bang = 0								# O(1)
+count_calls_from_bang = 0							# O(1)
+for call in calls:									# for: O(n)
+    if call[0][:5] == '(080)':						# if: O(1)
+        count_calls_from_bang += 1					# O(1)
+        if call[1][:5] == '(080)':					# if: O(1)
+            count_calls_to_bang += 1				# O(1)
+
+if count_calls_to_bang == 0:						# if: O(1)
+    percentage = 0									# O(1)
+else:												
+    percentage = (float(count_calls_to_bang) /		#O(1)
+                  float(count_calls_from_bang)) * 100
+print("...)											#O(1)
+
+
+* Analysis worst-case complexity task 3
+	- O(1) + 3 x O(n) + O(n log n)
+	- aprox : O(n log n) (logarithmic time)
+
+
+-------------------------------------------------------------------------------------------
+
+
+TASK 4
+
+code: 
+
+set_telemarkets = {call[0] for call in calls} 	# for: O(n)
+
+for call in calls:								# for: O(n)
+	if call[1] in set_telemarkets:				# if in set: O(n)
+		set_telemarkets.remove(call[1])			# set remove: O(1) most acurate case
+
+for text in texts:								# for: O(n)
+	if text[0] in set_telemarkets:				# if: O(1)
+		set_telemarkets.remove(text[0])			# set remove: O(1) most acurate case
+	if text[1] in set_telemarkets:				# if: O(1)
+		set_telemarkets.remove(text[1])			# set remove: O(1) most acurate case
+
+print(list(set_telemarkets))					# O(1)	
+
+
+* Analysis worst-case complexity task 4
+	- O(1) + 3 x O(n) 
+	- aprox : O(n) (linear time)
